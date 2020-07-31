@@ -12,6 +12,12 @@ class Lesson extends Model
      * @var array
      */
     protected $fillable = [
-        'class_year','title' ,'description' , 'start_url' , 'join_url', 'start_time' , 'duration'
+        'class_year','title' ,'description' , 'start_url' , 'join_url', 'start_time' , 'duration','online'
     ];
+
+
+    // Assignment
+    public function assignment ( ) {
+        return $this->hasMany('App\Assignment' , 'lesson_id');
+    }
 }

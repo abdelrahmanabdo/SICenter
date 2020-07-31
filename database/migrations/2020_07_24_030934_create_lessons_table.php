@@ -22,6 +22,7 @@ class CreateLessonsTable extends Migration
             $table->string('join_url');
             $table->dateTime('start_date');
             $table->string('duration')->nullable();
+            $table->boolean('online')->default(1);
             $table->timestamps();
         });
     }

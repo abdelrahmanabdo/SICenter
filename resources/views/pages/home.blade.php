@@ -9,7 +9,9 @@
                   <!-- Hero Content -->
                   <div class="hero-content text-center">
                       <h2>Let's Study Together</h2>
+                      @guest
                       <a href="/reservations" class="btn clever-btn">إبدأ الأن ....</a>
+                      @endguest
                   </div>
               </div>
           </div>
@@ -79,7 +81,8 @@
                   </div>
               </div>
           </div>
-          <div class="row">
+          <div class="row justify-content-center">
+            @if($y1_lesson || $y2_lesson || $y3_lesson)
               <!-- Single Popular Course -->
               @if($y1_lesson)
               <div class="col-12 col-md-6 col-lg-4">
@@ -193,11 +196,14 @@
                   </div>
               </div>
               @endif
+              @else 
+                <h5 class="mb-5 text-primary">لا يوجد دروس حتي الأن</h5>
+              @endif
           </div>
       </div>
   </section>
   <!-- ##### Popular Courses End ##### -->
-
+{{-- 
   <!-- ##### Popular Courses Start ##### -->
   <section class="blog-area section-padding-100-0">
     <div class="container">
@@ -322,9 +328,9 @@
                 </div>
             </div>
             @endif
-        </div>
+        </div> 
     </div>
-</section>
+</section> --}}
   <!-- ##### Upcoming Events End ##### -->
 
   {{-- <!-- ##### Blog Area Start ##### -->

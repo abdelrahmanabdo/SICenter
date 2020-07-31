@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lesson ;
+use App\Attendance;
 use App\Reservation;
+use App\Assignment;
+
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
@@ -40,7 +43,7 @@ class LessonController extends Controller
         $meeting = $zoom::meeting()->make([
             'topic' => $request->topic,
             'type' => 2,
-            'start_time' => new Carbon('2020-07-30 18:20:00') ,
+            'start_time' => new Carbon($request->start_time) ,
             'duration' => 80,
             'timezone' => 'Africa/Cairo',
             'password' => '12345678',
@@ -74,6 +77,19 @@ class LessonController extends Controller
                 'duration' => $result->duration
             ]);
 
+            if ($request->hasFile('assignments')) {
+                $files   = $request->file('assignments');
+                foreach($files as $file){
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = $new->id."-".date('his') .".".$extension;
+                    $folderpath  = 'uploads/assignments'.'/';
+                    $file->move($folderpath , $fileName);
+                    $assignment = Assignment::create([
+                        'lesson_id' => $new->id,
+                        'url' => url('/') . '/' .$folderpath. $fileName
+                    ]);
+                }
+            }
             
             if($new) {
                 $notification= [
@@ -98,13 +114,17 @@ class LessonController extends Controller
      */
     public function get_lessons (){
         if (\Auth::check()) {
-            $class = Reservation::where('user_id' , \Auth::user()->id)->value('class_year');
-            $data = Lesson::where('class_year' , $class)->get();
+            if(\Auth::user()->role == 'Admin' || \Auth::user()->role == 'MR'){
+                $data = Lesson::orderBy('class_year','desc')->get();
+
+            }else{
+                $class = Reservation::where('user_id' , \Auth::user()->id)->value('class_year');
+                $data = Lesson::where('class_year' , $class)->get();
+            }
         }else{
-            $data = Lesson::all();
         }
 
-        return view('pages.lessons',['data' => $data ?? [] ]);
+        return view('pages.lessons',['data' => $data ]);
     }
 
 
@@ -113,7 +133,17 @@ class LessonController extends Controller
      */
     public function go_to_lesson_room ($id,$title) {
         if($title){
-            $lesson = Lesson::where('title' , 'like' , '%'.$title.'%')->whereId($id)->first();
+            $lesson = Lesson::with(['assignment'])->where('title' , 'like' , '%'.$title.'%')->whereId($id)->first();
+            $now    = Carbon::now('UTC');
+            $isAfter = $now->greaterThan($lesson->start_time);
+            //If lesson is available create attendance
+            if($isAfter && $lesson->online == 1){
+                $attend = Attendance::firstOrNew([
+                    'user_id' => \Auth::user()->id,
+                    'lesson_id' => $lesson->id,
+                    'date' => $now
+                ]);
+            }
         }else{
             $notification= [
                 'message' => 'حدث خطأ أثناء أضافة الدرس برجاء المحاولة مرة أخري',
@@ -124,5 +154,22 @@ class LessonController extends Controller
         return view('pages.lesson-room' , ['lesson' => $lesson])->with($notification ?? []);
 
     }
+
+    /**
+     * Delete Lesson
+     */
+    public function delete_lesson ($id) {   
+        $lesson = Lesson::find($id);
+        $lesson->delete();
+
+        $notification= [
+            'message' => 'تم مسح الدرس',
+            'alert-type' => 'success'
+        ];
+ 
+        $data = Lesson::get();
+
+        return back()->with(['data' => $data,$notification]);
+    }   
 
 }

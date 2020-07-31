@@ -21,7 +21,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
-                                <input id="mobile" placeholder="رقم الموبايل (*********01) باللغة الانجليزية" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
+                                <input id="mobile" placeholder="رقم الموبايل باللغة الانجليزية" type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" required autocomplete="mobile" autofocus>
                                 @error('mobile')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -67,19 +67,5 @@
 @endsection
 
 <script>
-    $('document').ready(function(){
-        $("#mobile").keypress(function(event){
-            alert('faf')
-            var ew = event.which;
-            if(ew == 32)
-                return true;
-            if(48 <= ew && ew <= 57)
-                return true;
-            if(65 <= ew && ew <= 90)
-                return true;
-            if(97 <= ew && ew <= 122)
-                return true;
-            return false;
-        }); 
-    });
+
 </script>

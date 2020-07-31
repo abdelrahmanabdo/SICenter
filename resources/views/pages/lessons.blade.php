@@ -35,10 +35,9 @@
                   <td>{{$item->title}}</td>
                   <td>{{$item->description}}</td>
                   <td><a href="{{route('lesson-room',['id'=>$item->id , 'title'=>$item->title])}}">لينك الحصة </a></td>
-                  
                   <td style="display:flex;flex-direction:column ; justify-content: center; align-items: center">
                      <a href="#"><img style="width : 25px" src={{asset('images/edit.svg')}} ></a>
-                     <a class="mr-3" href="#"><img style="width : 25px" src={{asset('images/delete.svg')}} ></a>
+                     <a class="mr-3" href="{{route('lesson-delete',$item->id)}}"><img style="width : 25px" src={{asset('images/delete.svg')}} ></a>
                   </td>
                </tr>
               @empty 
@@ -47,23 +46,27 @@
           </table>
         </div>
         @else 
-            <section class="register-now section-padding-50-0 d-flex " 
-                    style="background-image: url({{asset('images/core-img/texture.png')}});flex:1  ">
-            <div class="container wow fadeInUp" data-wow-delay="400ms">
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <div class="page-content">
-                            <h4></h4>
-                            <p>لا يمكنكك مشاهدة الدروس بدون دفع المبلغ الشهري وتأكيد ذلك مع المدرس</p>
+            @if(auth()->user()->role == 'Normal' && auth()->user()->is_subscribed == 0)
+                <section class="register-now section-padding-50-0 d-flex " 
+                        style="background-image: url({{asset('images/core-img/texture.png')}});flex:1  ">
+                <div class="container wow fadeInUp" data-wow-delay="400ms">
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <div class="page-content">
+                                <h4></h4>
+                                <p>لا يمكنكك مشاهدة الدروس بدون دفع المبلغ الشهري وتأكيد ذلك مع المدر</p>
 
-                            <div class="form-group row mt-4 mb-0">
-                                <a class="btn btn-primary" style="text-decoration: underline" href="{{route('register')}}"> إنشاء حساب جديد</a>
+                                <div class="form-group row mt-4 mb-0">
+                                    <a class="btn btn-primary" style="text-decoration: underline" href="{{route('register')}}"> إنشاء حساب جديد</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            </section>
+                </section>
+            @else 
+
+            @endif
         @endif
       @endauth
       @guest
@@ -91,55 +94,73 @@
          <div class="container-fluid">
          <div class="row">
             <div class="col-12">
-               <a href="#" rel="modal:close">الغاء</a>
+               {{-- <a href="#" class="text-danger" rel="modal:close">الغاء</a> --}}
 
-                <div class="forms">
-                    <h4 style="text-align :center">أضافة درس</h4>
-                    <form action="{{route('send-reservation')}}" method="post">
+                <div class="forms my-4">
+                    <h4 style="text-align :center " class="mb-4">أضافة درس</h4>
+                    <form action="{{route('add-lesson')}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                    <select name="class_year" class="form-control" required>
+                        <option disabled selected  @error('class_year') is-invalid 
+                        @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
+                        <option value="1">الصف الأول الثانوي</option>
+                        <option value="2">الصف الثاني الثانوي</option>
+                        <option value="3">الصف الثالث الثانوي</option>
+                    </select>
+                    @error('class_year')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <input id="topic" placeholder="عنوان الدرس" type="text" class="form-control 
+                            @error('topic') is-invalid 
+                            @enderror" name="topic" value="{{ old('topic') }}" required >
+                            @error('topic')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <textarea id="description"class="form-control"  
+                                      name="description" value="{{ old('description') }}" placeholder="وصف قصير للدرس" required ></textarea>
+                            @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <input id="start_time" placeholder="وقت الحصة" type="datetime-local" class="form-control 
+                            @error('start_time') is-invalid 
+                            @enderror" name="start_time" value="{{ old('start_time') }}" required >
+                            @error('start_time')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <input id="name" placeholder="عنوان الدرس" type="text" class="form-control 
-                            @error('name') is-invalid 
-                            @enderror" name="name" value="{{ old('name') }}" required >
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                    </div>
-                    <div class=" row">
-                        <div class="col-md-12">
-                            <input id="guardianـmobile" placeholder="وصف الدرس" 
-                                    type="text" class="form-control 
-                            @error('guardianـmobile') is-invalid 
-                            @enderror" name="guardianـmobile" value="{{ old('guardianـmobile') }}" required >
-                            @error('guardianـmobile')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="col-md-12 d-flex flex-column align-items-center">
+                            <label class="align-right my-3">صور الواجب الخاص بالدرس</label>
+                            <input id="assignments" type="file" class="form-control" name="assignments[]" >
                         </div>
                     </div>
-                    <div class=" row">
-                     <div class="col-md-12">
-                         <input id="guardianـmobile" placeholder="رابط الحصة الاونلاين" 
-                                 type="text" class="form-control 
-                         @error('guardianـmobile') is-invalid 
-                         @enderror" name="guardianـmobile" value="{{ old('guardianـmobile') }}" required >
-                         @error('guardianـmobile')
-                             <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                             </span>
-                         @enderror
-                     </div>
-                 </div>
-                    <div class="form-group row mb-0">
+                    <div class="form-group row my-4">
                             <div class="col-md-8 align-center offset-md-12">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __(' ارسال طلب الحجز الأن') }}
+                                    {{ __(' أضافة درس ') }}
                                 </button>
                             </div>
                     </div>

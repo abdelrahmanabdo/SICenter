@@ -73,11 +73,14 @@
                                     <li><a href="{{route('reservations')}}">طلبات الحجز</a></li>
                                     <li><a href="{{route('students')}}">الطلاب</a></li>
                                     <li><a href="{{route('lessons')}}">الدروس</a></li>
+                                     <li><a href="{{route('attendances')}}">الحضور</a></li>
+
                                   @endif
                                   @if(Auth::user()->role == 'Normal')
                                     <li><a href="{{route('lessons')}}">الدروس</a></li>
                                     <li><a href="{{route('attendances')}}">الحضور</a></li>
                                   @endif
+
                                 @endauth
                                 @if(@Auth::user()->role != 'Admin' && @Auth::user()->is_active != 1)
                                     <li><a href="{{route('reservations')}}">الحجز عند المدرس</a></li>

@@ -33,7 +33,9 @@ body {
 }
 
 .modal {
-  width: 400px !important;
+  overflow: visible;
+  z-index: 1000;
+  margin-top: 20px;
 }
 
 .register-now .register-contact-form {

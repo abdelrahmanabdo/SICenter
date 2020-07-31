@@ -22,8 +22,8 @@ class CreateStudentsTable extends Migration
             /**
              * Foreign Keys
              */
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('reservation_id')->references('id')->on('reservations');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
 
         });
     }

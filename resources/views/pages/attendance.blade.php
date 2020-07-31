@@ -4,16 +4,32 @@
     <!-- ##### Regular Page Area Start ##### -->
     <section class="regular-page-area section-padding-50-0 d-flex " 
              style="background-image: url({{asset('images/core-img/texture.png')}});flex:1 ">        
-      <div class="container">
-            <div class="row">
-                <div class="col-12 text-right">
-                    <div class="page-content">
-                        <h4>للتواصل والأستفسارات</h4>
-                        <p>Sed elementum lacus a risus luctus suscipit. Aenean sollicitudin sapien neque, in fermentum lorem dignissim a. Nullam eu mattis quam. Donec porttitor nunc a diam molestie blandit. Maecenas quis ultrices ex. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eget vehicula lorem, vitae porta nisi. Ut vel quam erat. Ut vitae erat tincidunt, tristique mi ac, pharetra dolor. In et suscipit ex. Pellentesque aliquet velit tortor, eget placerat mi scelerisque a. Aliquam eu dui efficitur purus posuere viverra. Proin ut elit mollis, euismod diam et, fermentum enim.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+             <div class="container wow fadeInUp" data-wow-delay="400ms" >
+               <diV style="display: flex;justify-content : space-between">
+                  <div class="row mb-4">
+                     <h3 class="text-primary"> حضور الدروس ({{isset($data) ? count($data) : 0}})</h3>
+                  </div>
+               </diV>
+               <table class="col-12" id="table" data-toggle="table">
+                  <thead>
+                     <tr>
+                        <th> عنوان الدرس</th>
+                        <th> وقت حضور الدرس</th>
+                        <th>الشهر</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       @forelse($data as $item)
+                       <tr style="text-align: right">
+                          <td>{{$item->lesson->title}}</td>
+                          <td>{{$item->date}}</td>
+                          <td>{{$item->created_at->format('m')}}</td>
+                       </tr>
+                      @empty 
+                    @endforelse
+                  </tbody>
+                </table>
+              </div>
     </section>
     <!-- ##### Regular Page Area End ##### -->
 

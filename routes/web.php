@@ -45,9 +45,10 @@ Route::get('/reservations/reject/{id}' , 'ReservationController@reject_reservati
 /**
  * Lessons
  */
-Route::post('/lessons' , 'LessonController@add_lesson')->name('add-reservation');
+Route::post('/lessons' , 'LessonController@add_lesson')->name('add-lesson');
 Route::get('/lessons', 'LessonController@get_lessons')->name('lessons');
 Route::get('/lessons/lesson-room/{id}/{title}', 'LessonController@go_to_lesson_room')->name('lesson-room');
+Route::get('/lessons/{id}', 'LessonController@delete_lesson')->name('lesson-delete');
 
 
 
@@ -56,6 +57,10 @@ Route::get('/lessons/lesson-room/{id}/{title}', 'LessonController@go_to_lesson_r
  */
 Route::get('/students', 'StudentController@get_students')->name('students');
 
+
+/**
+ * Attendance
+ */
 Route::get('/attendance', 'AttendanceController@get_my_attendance')->name('attendances');
 
 

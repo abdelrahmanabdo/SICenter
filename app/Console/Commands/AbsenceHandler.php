@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Carbon\Carbon;
+use App\Lesson ;
 
 class AbsenceHandler extends Command
 {
@@ -38,7 +39,14 @@ class AbsenceHandler extends Command
      */
     public function handle()
     {   
-        dd(Carbon::now());
-        return 0;
+        $lessons = Lesson::whereOnline(1)->get();
+        foreach($lessons as $lesson){
+            $now    = Carbon::now();
+            $isAfter = $now->greaterThan($lesson->start_time);
+            if($isAfter){
+                $lesson->update(['online'=>0]);
+            }
+        }
+        return true;
     }
 }
