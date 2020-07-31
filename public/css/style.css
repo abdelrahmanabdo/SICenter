@@ -34,7 +34,7 @@ body {
 
 .modal {
   overflow: scroll;
-  max-height: 70% ;
+  max-height: 73% ;
   top: 40px;
   width: unset !important;
   max-width: 1000px !important;

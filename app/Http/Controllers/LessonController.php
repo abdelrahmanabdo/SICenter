@@ -37,14 +37,11 @@ class LessonController extends Controller
 
         $user = $zoom::user()->find('h8C3RQtHS3OAxXNCi828Lw');
 
-        $date = new Carbon($request->start_time_date .'T'. $request->start_time_time) ;
-        
-        $date->setTimezone('Africa/Cairo');
+        $date = new Carbon($request->start_time_date . $request->start_time_time) ;
 
         $meeting = $zoom::meeting()->make([
             'topic' => $request->topic,
             'type' => 2,
-            'timezone' => 'Africa/Cairo',
             'start_time' => $date,
             'duration' => 90,
             'password' => '12345678',
