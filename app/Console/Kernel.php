@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('student:absence')->daily();
+        $schedule->command('student:absence')->dailyAt('20:30');
         $schedule->command('student:subscription')
                  ->monthly();
     }
