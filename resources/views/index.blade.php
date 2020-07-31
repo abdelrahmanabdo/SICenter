@@ -137,6 +137,7 @@
     <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
          <!-- Modal -->  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
     <script>
         $('#table').bootstrapTable({
@@ -145,6 +146,7 @@
              detailViewAlign: 'right',
              locale:'ar-EG',
         })
+        
     </script>
 
 
@@ -200,9 +202,37 @@
                         return true;
                     alert('برجاء إدخال رقم الموبايل باللغة الانجليزية')
                     return false;
-                }); 
+                });
+
+                    
         });
-        
+
+        $(function() {
+                // Multiple images preview in browser
+                var imagesPreview = function(input, placeToInsertImagePreview) {
+
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+
+                            reader.onload = function(event) {
+                                $($.parseHTML('<img width="70px;border-radius:8px" class="mr-2">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                            }
+
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+
+                };
+
+                $('#files').on('change', function() {
+                    $('div.gallery').empty()
+                    imagesPreview(this, 'div.gallery');
+                });
+            });
+    
       </script>
 
 </body>

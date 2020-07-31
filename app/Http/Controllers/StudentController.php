@@ -67,7 +67,7 @@ class StudentController extends Controller
          ]);
 
          if($details){
-            
+
             $student = Student::create([
                'user_id' => $user->id,
                'reservation_id' => $details->id
@@ -87,6 +87,58 @@ class StudentController extends Controller
 
       return back()->with($notification);
 
+    }
 
+    /**
+     * Delete Student
+     */
+    public function delete_student($id){
+      $student = Student::find($id);
+      
+      $student->delete();
+
+      $data =  Student::with(['user','details'])
+                        ->whereHas('user',function($query){
+                           $query->where('role','<>','Admin'); 
+                        })->get();
+      $notification = [
+         'message' =>  'تم مسح الطالب بنجاح ' ,
+         'alert-type' =>  'success'
+      ];
+
+      
+      return view('pages.students')->with(['data'=>$data,$notification]);
+    }
+
+    /**
+     * Get Student Details
+     */
+    public function get_student_details($id){
+       if($id){
+          $data = Student::with(['user','details','user.attendance','user.attendance.lesson'])->find($id);  
+          return view('pages.studentDetails' , ['data'=>$data]);
+       }
+    }
+
+    /**
+     * Update Student Data
+     */
+    public function update_student($id ,Request $request) {
+      $student = Reservation::find($id);
+      $student->update([
+         'name' => $request->name ?? $student->name,
+         'mobile' => $request->mobile ?? $student->mobile,
+         'guardianـmobile' => $request->guardianـmobile ?? $student->guardianـmobile,
+         'guardianـjob' => $request->guardianـjob ?? $student->guardianـjob,
+         'address' => $request->address ?? $student->address,
+         'class_year' => $request->class_year ?? $student->class_year ,
+      ]);
+
+      $notification = [
+            'message' =>  'تم تعديل البيانات الشخصية بنجاح ' ,
+            'alert-type' =>  'success'
+      ];
+
+      return back()->with($notification);
     }
 }

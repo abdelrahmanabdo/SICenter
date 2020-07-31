@@ -21,7 +21,8 @@
                 <th>الصف الدراسي</th>
                 <th> عنوان الدرس</th>
                 <th>  وصف قصير للدرس</th>
-                <th>لينك الحصة الأونلاين</th>
+                <th>   توقيت بداية الدرس </th>
+                <th>لينك الدرس الأونلاين</th>
                 <th></th>
               </tr>
             </thead>
@@ -34,10 +35,11 @@
                   </td>
                   <td>{{$item->title}}</td>
                   <td>{{$item->description}}</td>
-                  <td><a href="{{route('lesson-room',['id'=>$item->id , 'title'=>$item->title])}}">لينك الحصة </a></td>
+                  <td>{{$item->start_time}}</td>
+                  <td><a href="{{route('lesson-room',['id'=>$item->id , 'title'=>$item->title])}}">لينك الدرس </a></td>
                   <td style="display:flex;flex-direction:column ; justify-content: center; align-items: center">
-                     <a href="#"><img style="width : 25px" src={{asset('images/edit.svg')}} ></a>
-                     <a class="mr-3" href="{{route('lesson-delete',$item->id)}}"><img style="width : 25px" src={{asset('images/delete.svg')}} ></a>
+                     {{-- <a href="#"><img style="width : 25px" src={{asset('images/edit.svg')}} ></a> --}}
+                     <a  href="{{route('lesson-delete',$item->id)}}"><img style="width : 25px" src={{asset('images/delete.svg')}} ></a>
                   </td>
                </tr>
               @empty 
@@ -89,7 +91,8 @@
         </section>
       @endguest
     </section>
-    <!-- Modal -->
+ 
+   <!-- Modal -->
       <div id="modal" class="modal">
          <div class="container-fluid">
          <div class="row">
@@ -100,69 +103,78 @@
                     <h4 style="text-align :center " class="mb-4">أضافة درس</h4>
                     <form action="{{route('add-lesson')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                    <select name="class_year" class="form-control" required>
-                        <option disabled selected  @error('class_year') is-invalid 
-                        @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
-                        <option value="1">الصف الأول الثانوي</option>
-                        <option value="2">الصف الثاني الثانوي</option>
-                        <option value="3">الصف الثالث الثانوي</option>
-                    </select>
-                    @error('class_year')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <input id="topic" placeholder="عنوان الدرس" type="text" class="form-control 
-                            @error('topic') is-invalid 
-                            @enderror" name="topic" value="{{ old('topic') }}" required >
-                            @error('topic')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <textarea id="description"class="form-control"  
-                                      name="description" value="{{ old('description') }}" placeholder="وصف قصير للدرس" required ></textarea>
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <input id="start_time" placeholder="وقت الحصة" type="datetime-local" class="form-control 
-                            @error('start_time') is-invalid 
-                            @enderror" name="start_time" value="{{ old('start_time') }}" required >
-                            @error('start_time')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="row">
-                        <div class="col-md-12 d-flex flex-column align-items-center">
-                            <label class="align-right my-3">صور الواجب الخاص بالدرس</label>
-                            <input id="assignments" type="file" class="form-control" name="assignments[]" >
-                        </div>
-                    </div>
-                    <div class="form-group row my-4">
-                            <div class="col-md-8 align-center offset-md-12">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __(' أضافة درس ') }}
-                                </button>
+                     <div class="col-6"> 
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                        <select name="class_year" class="form-control" required>
+                            <option disabled selected  @error('class_year') is-invalid 
+                            @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
+                            <option value="1">الصف الأول الثانوي</option>
+                            <option value="2">الصف الثاني الثانوي</option>
+                            <option value="3">الصف الثالث الثانوي</option>
+                        </select>
+                        @error('class_year')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <input id="topic" placeholder="عنوان الدرس" type="text" class="form-control 
+                                @error('topic') is-invalid 
+                                @enderror" name="topic" value="{{ old('topic') }}" required >
+                                @error('topic')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <textarea id="description"class="form-control"   rows="5"
+                                        name="description" value="{{ old('description') }}" placeholder="وصف قصير للدرس" required ></textarea>
+                                @error('description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                     </div>
+                     <div class="col-6">
+                        <div class="row mb-3">
+                            <div class="col-md-12  d-flex flex-column align-items-center">
+                                <label class="align-right text-primary">تاريخ وتوقيت الدرس</label>
+                                <input id="start_time_date" placeholder="وقت الحصة" type="date" class="form-control 
+                                @error('start_time_date') is-invalid 
+                                @enderror" name="start_time_date" value="{{ old('start_time_date') }}" required >
+
+                                <input id="start_time_time" placeholder="وقت الحصة" type="time" class="form-control mt-3
+                                @error('start_time_time') is-invalid 
+                                @enderror" name="start_time_time" value="{{ old('start_time_time') }}" required >
+                            </div>
+                        
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column align-items-center">
+                                <label class="align-right my-3 text-primary">صور الواجب الخاص بالدرس</label>
+                                <input type="file" class="form-control" name="assignments[]" id="files" multiple>
+                            </div>
+                        </div>
+                        <div class="gallery mt-3"></div>
+
+                     </div>
+                        <div class="form-group row my-4">
+                                <div class="col-md-8 align-center offset-md-12">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __(' أضف درس ') }}
+                                    </button>
+                                </div>
+                        </div>
                     </div>
                     </form>
                 </div>
@@ -171,13 +183,13 @@
          </div>
       </div>
     <!-- -->
-
     
 
 
 @include('sections.footer')
 
 @endsection
+
 {{-- 
 <script>
    

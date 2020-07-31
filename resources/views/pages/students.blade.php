@@ -56,20 +56,25 @@
                 <th>رقم موبايل ولي الأمر</th>
                 <th>الصف الدراسي</th>
                 <th> دفع هذا الشهر ؟</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
                @forelse($data as $item)
-               <tr data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"  style="text-align: right">
-                  <td>{{$item->user->id}}</td>
-                  <td>{{$item->details->name}}</td>
-                  <td>{{$item->user->mobile}}</td>
-                  <td>{{$item->details->mobile}}</td>
-                  <td>{{$item->details->guardianـjob}}</td>
-                  <td>{{$item->details->guardianـmobile}}</td>
-                  <td>{{$item->details->class_year == 1 ? 'الصف الأول' :($item->details->class_year == 2 ? 'الصف الثاني' : 'الصف الثالث')}}</td>
-                  <td>{{$item->user->is_subscribed  == 1? 'نعم' : 'لا'}}</td>
-               </tr>
+                  <tr data-href="http://myspace.com" style="text-align: right">
+                     <td>{{$item->id}}</td>
+                     <td>{{$item->details->name}}</td>
+                     <td>{{$item->user->mobile}}</td>
+                     <td>{{$item->details->mobile}}</td>
+                     <td>{{$item->details->guardianـjob}}</td>
+                     <td>{{$item->details->guardianـmobile}}</td>
+                     <td>{{$item->details->class_year == 1 ? 'الصف الأول' :($item->details->class_year == 2 ? 'الصف الثاني' : 'الصف الثالث')}}</td>
+                     <td>{{$item->user->is_subscribed  == 1? 'نعم' : 'لا'}}</td>
+                     <td>
+                        <a  href="{{route('student.details',$item->id)}}"><img style="width : 40px" src={{asset('images/view.svg')}} ></a>
+
+                     </td>
+                  </tr>
               @empty 
               @endforelse
             </tbody>

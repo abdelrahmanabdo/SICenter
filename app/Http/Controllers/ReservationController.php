@@ -102,6 +102,7 @@ class ReservationController extends Controller
      */
     public function reject_reservation ($id) {
         $reservation = Reservation::find($id);
+        
         $reservation->update(['is_new' => 0 ]);
 
         $notification = [

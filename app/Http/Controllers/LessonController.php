@@ -21,7 +21,6 @@ class LessonController extends Controller
         $validator = Validator::make($request->all(), [
                 'class_year' => 'required|string',
                 'topic' => 'required',
-                'start_time' => 'required',
 
         ]);
 
@@ -33,25 +32,29 @@ class LessonController extends Controller
             ], 400);
         }
         $zoom = new \MacsiDigital\Zoom\Support\Entry;
-         $user = new \MacsiDigital\Zoom\User($zoom);
 
-
-        $zoom = new \MacsiDigital\Zoom\Support\Entry;
+        $user = new \MacsiDigital\Zoom\User($zoom);
 
         $user = $zoom::user()->find('h8C3RQtHS3OAxXNCi828Lw');
+
+        $date = new Carbon($request->start_time_date .'T'. $request->start_time_time) ;
+        
+        $date->setTimezone('Africa/Cairo');
 
         $meeting = $zoom::meeting()->make([
             'topic' => $request->topic,
             'type' => 2,
-            'start_time' => new Carbon($request->start_time) ,
-            'duration' => 80,
             'timezone' => 'Africa/Cairo',
+            'start_time' => $date,
+            'duration' => 80,
             'password' => '12345678',
         ]);
 
         
         $meeting->settings()->make([
             'join_before_host' => true,
+            'participant_video' => false,
+            'close_registeration' => true,
             'approval_type' => 1,
             'registration_type' => 1,
             'enforce_login' => true,
@@ -73,7 +76,7 @@ class LessonController extends Controller
                 'description' => $request->description,
                 'start_url' => $result->start_url,
                 'join_url' => $result->join_url,
-                'start_time' => $result->start_time,
+                'start_time' => Carbon::parse($result->start_time)->addHour(2),
                 'duration' => $result->duration
             ]);
 
@@ -134,19 +137,25 @@ class LessonController extends Controller
     public function go_to_lesson_room ($id,$title) {
         if($title){
             $lesson = Lesson::with(['assignment'])->where('title' , 'like' , '%'.$title.'%')->whereId($id)->first();
-            $now    = Carbon::now('UTC');
-            $isAfter = $now->greaterThan($lesson->start_time);
-            //If lesson is available create attendance
-            if($isAfter && $lesson->online == 1){
-                $attend = Attendance::firstOrNew([
-                    'user_id' => \Auth::user()->id,
-                    'lesson_id' => $lesson->id,
-                    'date' => $now
-                ]);
+            if(\Auth::user()->role == 'Normal'){
+                $now    = Carbon::now('EET');
+                $isAfter = $now->greaterThan($lesson->start_time);
+    
+                //If lesson is available create attendance
+                if($isAfter && $lesson->online == 1){
+                    $isAttendedBefore = Attendance::where(['user_id' =>\Auth::user()->id , 'lesson_id' =>$lesson->id ])->exists();
+                    if(!$isAttendedBefore){
+                        $attend = Attendance::create([
+                            'user_id' => \Auth::user()->id,
+                            'lesson_id' => $lesson->id,
+                            'date' => $now
+                        ]);
+                    }
+                }
             }
         }else{
             $notification= [
-                'message' => 'حدث خطأ أثناء أضافة الدرس برجاء المحاولة مرة أخري',
+                'message' => 'حدث خطأ أثناء حضور الدرس برجاء المحاولة مرة أخري',
                 'alert-type' => 'error'
             ];
         }

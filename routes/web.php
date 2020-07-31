@@ -24,12 +24,18 @@ Auth::routes();
  */
 Route::get('/', 'HomeController@index')->name('home');
 
+//User
+Route::post('/users/{id}', 'UserController@update_user')->name('user.update');
+
+
+//
 Route::get('/lessons', 'HomeController@lessons')->name('lessons');
 
 
-
+// Reservations
 Route::get('/lesson-reservation', 'HomeController@lesson_reservation')->name('lesson-reservation');
 
+//Contact us
 Route::get('/contact-us', 'HomeController@contact_us')->name('contact-us');
 
 
@@ -57,6 +63,9 @@ Route::get('/lessons/{id}', 'LessonController@delete_lesson')->name('lesson-dele
  */
 Route::post('/students', 'StudentController@add_student')->name('add-student');
 Route::get('/students', 'StudentController@get_students')->name('students');
+Route::get('/students/{id}', 'StudentController@get_student_details')->name('student.details');
+Route::get('/students/delete/{id}', 'StudentController@delete_student')->name('student.delete');
+Route::post('/students/{id}', 'StudentController@update_student')->name('student.update');
 
 
 
