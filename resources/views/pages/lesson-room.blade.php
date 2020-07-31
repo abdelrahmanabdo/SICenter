@@ -12,7 +12,7 @@
              style="background-image: url({{asset('images/core-img/texture.png')}});flex:1 ">              
         <div class="container">
         @if($isBefore) 
-            <h5 class="mb-5 text-primary text-center">لم يحن ميعاد الدرس بعد .... {{$lesson->start_time}}</h5>
+            <h5 class="my-5 text-primary text-center">لم يحن ميعاد الدرس بعد .... {{$lesson->start_time}}</h5>
         @else 
             @if($lesson->online == 0)
              @if($lesson->video_url)
