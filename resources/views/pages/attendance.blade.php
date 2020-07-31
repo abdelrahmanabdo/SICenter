@@ -13,7 +13,10 @@
                <table class="col-12" id="table" data-toggle="table">
                   <thead>
                      <tr>
-                        <th> عنوان الدرس</th>
+                        <th> الدرس</th>
+                        @if(\Auth::user()->role == 'Admin' || \Auth::user()->role == 'Mr')
+                           <th> إسم الطالب </th>
+                        @endif
                         <th> وقت حضور الدرس</th>
                         <th>الشهر</th>
                       </tr>
@@ -22,6 +25,9 @@
                        @forelse($data as $item)
                        <tr style="text-align: right">
                           <td>{{$item->lesson->title}}</td>
+                          @if(\Auth::user()->role == 'Admin' || \Auth::user()->role == 'Mr')
+                          <td>{{$item->user->student->details->name}}</td>
+                          @endif
                           <td>{{$item->date}}</td>
                           <td>{{$item->created_at->format('m')}}</td>
                        </tr>

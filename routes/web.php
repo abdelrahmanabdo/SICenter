@@ -55,7 +55,9 @@ Route::get('/lessons/{id}', 'LessonController@delete_lesson')->name('lesson-dele
 /**
  * Students 
  */
+Route::post('/students', 'StudentController@add_student')->name('add-student');
 Route::get('/students', 'StudentController@get_students')->name('students');
+
 
 
 /**
