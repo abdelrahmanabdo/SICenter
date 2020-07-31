@@ -46,7 +46,7 @@ class LessonController extends Controller
             'type' => 2,
             'timezone' => 'Africa/Cairo',
             'start_time' => $date,
-            'duration' => 80,
+            'duration' => 90,
             'password' => '12345678',
         ]);
 
@@ -180,5 +180,31 @@ class LessonController extends Controller
 
         return back()->with(['data' => $data,$notification]);
     }   
+
+
+    /**
+     * Upload recorded video for lesson
+     * 
+     */
+    public function upload_lesson_video (Request $request){
+        $lesson = Lesson::find($request->lesson_id);
+        if($request->has('video')){
+            $file = $request->video;
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $request->lesson_id."-".date('his') .".".$extension;
+            $folderpath  = 'uploads/videos'.'/';
+            $file->move($folderpath , $fileName);
+            $lesson->update([
+                'video_url' => url('/') . '/' .$folderpath. $fileName ,
+                'online' => 0
+            ]);
+        }
+
+        $notification= [
+            'message' => 'تم رفع فيديو الدرس',
+            'alert-type' => 'success'
+        ];
+        return back()->with($notification);
+    }
 
 }

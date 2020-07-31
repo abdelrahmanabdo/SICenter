@@ -44,7 +44,7 @@ class AbsenceHandler extends Command
             $now    = Carbon::now();
             $isAfter = $now->greaterThan($lesson->start_time);
             if($isAfter){
-                $lesson->update(['online'=>0]);
+                $lesson->update(['online' => 0]);
             }
         }
         return true;

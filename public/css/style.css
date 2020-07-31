@@ -33,9 +33,10 @@ body {
 }
 
 .modal {
-  overflow: visible;
-  z-index: 1000;
+  overflow: scroll;
+  max-height: 70% ;
   top: 40px;
+  width: unset !important;
   max-width: 1000px !important;
 }
 

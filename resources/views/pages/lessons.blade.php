@@ -13,6 +13,7 @@
             </div>
             <div>
                <a class="mr-3 btn btn-primary" href="#modal" rel="modal:open">أضف درس جديد</a>
+               <a class="mr-3 btn btn-primary" href="#UploadModal" rel="modal:open">رفع فيديو تسجيل درس</a>
             </div>
          </diV>
          <table class="col-12" id="table" data-toggle="table">
@@ -67,7 +68,50 @@
                 </div>
                 </section>
             @else 
+      <div class="container">
 
+            <div class="row justify-content-center">
+                @forelse($data as $lesson)
+                  <!-- Single Popular Course -->
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                        <img style="height :170px"  src="{{asset('images/one.svg')}}" alt="">
+                        <!-- Course Content -->
+                        <div class="course-content ">
+                            <span class="float-right" >{{$lesson->title}}</span>
+                            <div class="">
+                                <p>{{$lesson->start_time}}</p>
+                            </div>
+                            <p class="d-flex justify-content-center">{{$lesson->description}}</p>
+                        </div>
+                           <!-- Seat Rating Fee -->
+                           <div class="seat-rating-fee d-flex justify-content-between">
+                            @auth
+                                @if(auth()->user()->is_subscribed == 1)
+                                    <div  class="seat-rating h-100 d-flex align-items-center">
+                                        <a class="date" href="{{route('lesson-room',['id'=>$lesson->id , 'title'=>$lesson->title])}}">الذهاب الي الدرس الأن</a>
+                                    </div>
+                                    <div class="course-fee h-100">
+                                        <a style="display:flex;justify-content:center" 
+                                            href="{{route('lesson-room',['id'=>$lesson->id , 'title'=>$lesson->title])}}">
+                                            <img style="width:27px" src="{{asset('images/go.svg')}}" />
+                                        </a>
+                                    </div>
+                                @else 
+                                    <span class="mt-2 mr-2">لم يتم دفع الاشتراك الشهري لكي يمكنك الحضور</span>
+                                @endif
+                              @endauth
+                              @guest 
+                              <span class="mt-2 mr-2">يجب أن تكون طالب عن المستر لكي يمكنك الحضور</span>
+                              @endguest
+                          </div> 
+                      </div>
+                  </div>
+                  @empty
+                    <h5 class="mb-5 text-primary">لا يوجد دروس حتي الأن</h5>
+                  @endforelse
+              </div>
+      </div>
             @endif
         @endif
       @endauth
@@ -103,8 +147,8 @@
                     <h4 style="text-align :center " class="mb-4">أضافة درس</h4>
                     <form action="{{route('add-lesson')}}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                     <div class="col-6"> 
+                    <div class="row col-xs-12">
+                     <div class="col-md-6 col-sm-12"> 
                         <div class="row mb-3">
                             <div class="col-md-12">
                         <select name="class_year" class="form-control" required>
@@ -122,7 +166,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-xs-12">
                                 <input id="topic" placeholder="عنوان الدرس" type="text" class="form-control 
                                 @error('topic') is-invalid 
                                 @enderror" name="topic" value="{{ old('topic') }}" required >
@@ -134,7 +178,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-xs-12">
                                 <textarea id="description"class="form-control"   rows="5"
                                         name="description" value="{{ old('description') }}" placeholder="وصف قصير للدرس" required ></textarea>
                                 @error('description')
@@ -145,7 +189,7 @@
                             </div>
                         </div>
                      </div>
-                     <div class="col-6">
+                     <div class="col-md-6 col-sm-12" >
                         <div class="row mb-3">
                             <div class="col-md-12  d-flex flex-column align-items-center">
                                 <label class="align-right text-primary">تاريخ وتوقيت الدرس</label>
@@ -184,7 +228,47 @@
       </div>
     <!-- -->
     
-
+   <!-- Modal -->
+      <div id="UploadModal" class="modal" style="width : 500px">
+         <div class="row d-flex flex-column justify-content-center">
+            <div class="forms my-4 ">
+                <h4 style="text-align :center " class="mb-4">رفع فيديو الدرس</h4>
+                <form action="{{route('add-lesson-video')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                     <div class="col-12"> 
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <select name="lesson_id" class="form-control" required>
+                                    <option disabled selected" value="{{ old('class_year') }}">أختر الدرس</option>
+                                    @forelse(@$data as $item)
+                                        <option value="{{$item->id}}">{{$item->title}}</option>
+                                    @empty 
+                                    <option  disabled selected value="0">لا يوجد دروس بعد</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column align-items-center">
+                                <input type="file" class="form-control" name="video" required>
+                            </div>
+                        </div>
+                        <div class="form-group row my-4">
+                                <div class="col-md-8 align-center offset-md-12">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __(' أضف الفيديو ') }}
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      
+    <!-- -->
 
 @include('sections.footer')
 

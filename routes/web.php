@@ -55,6 +55,7 @@ Route::post('/lessons' , 'LessonController@add_lesson')->name('add-lesson');
 Route::get('/lessons', 'LessonController@get_lessons')->name('lessons');
 Route::get('/lessons/lesson-room/{id}/{title}', 'LessonController@go_to_lesson_room')->name('lesson-room');
 Route::get('/lessons/{id}', 'LessonController@delete_lesson')->name('lesson-delete');
+Route::post('/lessons/video/upload', 'LessonController@upload_lesson_video')->name('add-lesson-video');
 
 
 

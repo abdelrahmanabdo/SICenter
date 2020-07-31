@@ -20,8 +20,9 @@ class CreateLessonsTable extends Migration
             $table->text('description')->nullable();
             $table->string('start_url');
             $table->string('join_url');
-            $table->dateTime('start_date');
+            $table->dateTime('start_time');
             $table->string('duration')->nullable();
+            $table->text('video_url');
             $table->boolean('online')->default(1);
             $table->timestamps();
         });
