@@ -36,7 +36,7 @@ body {
   overflow: scroll;
   max-height: 73% ;
   top: 40px;
-  width: unset !important;
+  /* width: unset !important; */
   max-width: 1000px !important;
 }
 

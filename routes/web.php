@@ -67,6 +67,8 @@ Route::get('/students', 'StudentController@get_students')->name('students');
 Route::get('/students/{id}', 'StudentController@get_student_details')->name('student.details');
 Route::get('/students/delete/{id}', 'StudentController@delete_student')->name('student.delete');
 Route::post('/students/{id}', 'StudentController@update_student')->name('student.update');
+Route::get('/students/filter/{class}', 'StudentController@filter_students')->name('student.filter');
+
 
 
 

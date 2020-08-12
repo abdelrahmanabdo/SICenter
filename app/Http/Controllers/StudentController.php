@@ -64,6 +64,8 @@ class StudentController extends Controller
             'guardianـjob' => $request->guardianـjob,
             'address' => $request->address,
             'class_year' => $request->class_year,
+            'appointment' => $request->appointment ,
+
          ]);
 
          if($details){
@@ -132,6 +134,8 @@ class StudentController extends Controller
          'guardianـjob' => $request->guardianـjob ?? $student->guardianـjob,
          'address' => $request->address ?? $student->address,
          'class_year' => $request->class_year ?? $student->class_year ,
+         'appointment' => $request->appointment ?? $student->appointment ,
+
       ]);
 
       $notification = [
@@ -141,4 +145,20 @@ class StudentController extends Controller
 
       return back()->with($notification);
     }
+
+        /**
+     * Update Student Data
+     */
+    public function filter_students($class) {
+      $data =  Student::with(['user','details'])
+                        ->whereHas('details',function($query) use($class){
+                           $query->where('class_year' , $class); 
+                        })
+                        ->whereHas('user',function($query){
+                           $query->where('role','<>','Admin'); 
+                        })->get();
+
+      return view('pages.students',['data' => $data , 'class' => $class]);
+    }
+
 }

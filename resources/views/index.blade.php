@@ -38,8 +38,8 @@
         <div class="top-header-area d-flex justify-content-between align-items-center">
             <!-- Contact Info -->
             <div class="contact-info">
-                <a href="#"><span>رقم الموبايل : </span> 01096742196</a>
-                <a href="#"><span>البريد الاكتروني : </span> info@clever.com</a>
+                <a href="#"><span> رقم الموبايل :</span>01124690038</a>
+                <!-- <a href="#"><span>البريد  الإلكتروني :</span> info@clever.com</a> -->
             </div>
         </div>
 

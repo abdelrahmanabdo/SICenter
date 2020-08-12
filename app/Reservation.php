@@ -12,7 +12,7 @@ class Reservation extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id' , 'name' , 'mobile' , 'guardianـmobile' ,'guardianـjob' , 'address', 'class_year' ,'is_new'
+        'user_id' , 'name' , 'mobile' , 'guardianـmobile' ,'guardianـjob' , 'address', 'class_year'  , 'appointment','is_new'
     ];
 
     // User

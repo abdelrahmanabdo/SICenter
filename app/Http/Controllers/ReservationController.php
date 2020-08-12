@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Reservation ;
+use App\User ;
 use App\Student ;
 class ReservationController extends Controller
 {
@@ -45,7 +46,9 @@ class ReservationController extends Controller
                 'guardianـjob' => $request->guardianـjob,
                 'address' => $request->address,
                 'class_year' => $request->class_year,
+                'appointment' => $request->appointment,
             ]);
+            
             $notification= [
                 'message' => 'تم ارسال طلب الحجز بأنتظار تأكيد الحجز من المدرس',
                 'alert-type' => 'success'
@@ -73,6 +76,11 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
 
         $reservation->update(['is_new' => 0 ]);
+        
+        //Update User 
+        $user = User::whereId($reservation->user_id)->update([
+                                                        'is_active' => 1,
+                                                        'is_subscribed' => 1]);
         
         //Add New Student
         $new = Student::create([

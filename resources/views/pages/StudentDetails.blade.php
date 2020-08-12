@@ -77,13 +77,16 @@
                                        type="text" class="form-control" name="guardianـmobile" value="{{$data->details->guardianـmobile}}"  >
                            </div>
                      </div> 
-                     <div class="row">
+                     <div class="row mb -3">
                            <div class="col-md-12">
                               <select name="class_year" required class="form-control" >
                                  <option disabled " value="class_year" >أختر الصف الدراسي</option>
                                  <option value="1" @if($data->details->class_year == 1) selected @endif>الصف الأول الثانوي</option>
-                                 <option value="2" @if($data->details->class_year == 2) selected @endif>الصف الثاني الثانوي</option>
-                                 <option value="3" @if($data->details->class_year == 3) selected @endif>الصف الثالث الثانوي</option>
+                                 <option value="2" @if($data->details->class_year == 2) selected @endif>الصف الثاني الثانوي - أدبي</option>
+                                 <option value="3" @if($data->details->class_year == 3) selected @endif>الصف الثاني الثانوي - علمي </option>
+                                 <option value="4" @if($data->details->class_year == 4) selected @endif>الصف الثاني الثانوي - ميكانيا </option>
+                                 <option value="5" @if($data->details->class_year == 5) selected @endif>الصف الثالث الثانوي </option>
+                                 <option value="6" @if($data->details->class_year == 6) selected @endif>إحصاء</option>
                               </select>
                               @error('class_year')
                                  <span class="invalid-feedback" role="alert">
@@ -92,6 +95,22 @@
                               @enderror
                            </div>
                      </div>
+                     <div class="row mt-3">
+                        <div class="col-md-12">
+                            <select name="appointment" class="form-control" required>
+                                <option disabled selected  @error('appointment') is-invalid 
+                                @enderror" value="{{ old('appointment') }}">أختر ميعاد الدرس الخاص بك</option>
+                                <option value="1" @if($data->details->appointment == 1) selected @endif>3 - 5 مساءا</option>
+                                <option value="2" @if($data->details->appointment == 2) selected @endif>5 - 7 مساءا</option>
+                                <option value="3" @if($data->details->appointment == 3) selected @endif>7 - 9 مساءا</option>
+                            </select>
+                            @error('appointment')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
                            <div class="form-group row my-4">
                                     <div class="col-md-8 align-center offset-md-12">
                                        <button type="submit" class="btn btn-primary">

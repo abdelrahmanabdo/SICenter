@@ -21,7 +21,9 @@ class CreateReservationsTable extends Migration
                   ->nullable();
             $table->string('guardianـmobile');
             $table->integer('class_year')
-                    ->comment('Class Year of student: 1 , 2 ,3 ');
+                    ->comment('Class Year of student: 1 , 2 ,3,4,5,6 ');
+            $table->integer('appointment')
+                    ->comment('Appointment of student: 1 , 2 ,3 ');
             $table->boolean('is_new')
                   ->default(1);
             $table->timestamps();
