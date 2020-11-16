@@ -156,7 +156,9 @@
                             @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
                             <option value="1">الصف الأول الثانوي</option>
                             <option value="2">الصف الثاني الثانوي</option>
-                            <option value="3">الصف الثالث الثانوي</option>
+                            <option value="3">الصف الثالث الثانوي </option>
+                            <option value="4"> ميكانيا </option>
+                            <option value="5">إحصاء</option>
                         </select>
                         @error('class_year')
                             <span class="invalid-feedback" role="alert">

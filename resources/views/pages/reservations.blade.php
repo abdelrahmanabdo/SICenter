@@ -42,7 +42,6 @@
                 <th> وظيفة ولي الامر</th>
                 <th>رقم موبايل ولي الامر</th>
                 <th>الصف الدراسي</th>
-                <th> ميعاد الدرس</th>
                 <th></th>
               </tr>
             </thead>
@@ -55,19 +54,12 @@
                   <td>{{$item->guardianـjob}}</td>
                   <td>{{$item->guardianـmobile}}</td>
                   <td>{{$item->class_year == 1 ? 'الصف الأول' :
-                      ($item->class_year == 2 ? 'الصف الثاني - أدبي' :
-                      ($item->class_year == 3 ? 'الصف الثاني - علمي':(
-                       $item->class_year == 4 ? 'الصف الثاني - ميكانيا' : (
-                       $item->class_year == 5 ? 'الصف الثالث ' :  'إحصاء' )
-                       )
-                      ))
-                      }}</td>
-            
-                    <td>{{$item->appointment == 0 ? 'لم يتم إختيار الميعاد' : (
-                        $item->appointment == 1 ? '٣ - ٥ مساءا' :($item->appointment == 2 ? ' ٧ - ٩ مساءا' : ' ٥ - ٧ مساءا'
-                    )) }} 
-                    </td>
-
+                        ($item->class_year == 2 ? 'الصف الثاني' :
+                        ($item->class_year == 3 ? 'الصف الثالث': (
+                         $item->class_year == 4 ? 'ميكانيا' : 'إحصاء'
+                         )
+                        ))
+                        }}</td>
                   <td style="display: flex ; justify-content: center; align-items: center">
                      <a href="{{route('accept-reservation',$item->id)}}">
                         <img style="width : 35px" src={{asset('images/accept.svg')}} >
@@ -169,33 +161,16 @@
                                 </div> 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <select name="class_year" class="form-control" required>
+                                        <select name="class_year" class="form-control" >
                                             <option disabled selected  @error('class_year') is-invalid 
                                             @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
                                             <option value="1">الصف الأول الثانوي</option>
-                                            <option value="2">الصف الثاني الثانوي - أدبي</option>
-                                            <option value="3">الصف الثاني الثانوي - علمي </option>
-                                            <option value="4">الصف الثاني الثانوي - ميكانيا </option>
-                                            <option value="5">الصف الثالث الثانوي </option>
-                                            <option value="6">إحصاء</option>
+                                            <option value="2">الصف الثاني الثانوي</option>
+                                            <option value="3">الصف الثالث الثانوي </option>
+                                            <option value="4"> ميكانيا </option>
+                                            <option value="5">إحصاء</option>
                                         </select>
                                         @error('class_year')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <select name="appointment" class="form-control" required>
-                                            <option disabled selected  @error('appointment') is-invalid 
-                                            @enderror" value="{{ old('appointment') }}">أختر ميعاد الدرس الخاص بك</option>
-                                            <option value="1">3 - 5 مساءا</option>
-                                            <option value="2">5 - 7 مساءا</option>
-                                            <option value="3">7 - 9 مساءا</option>
-                                        </select>
-                                        @error('appointment')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

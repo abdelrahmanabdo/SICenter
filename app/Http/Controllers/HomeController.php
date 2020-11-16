@@ -19,18 +19,15 @@ class HomeController extends Controller
         $y1_last_lesson = Lesson::whereClassYear(1)->whereOnline(1)->orderBy('id' , 'desc')->first();
         $y2_last_lesson = Lesson::whereClassYear(2)->whereOnline(1)->orderBy('id' , 'desc')->first();
         $y3_last_lesson = Lesson::whereClassYear(3)->whereOnline(1)->orderBy('id' , 'desc')->first();
-
-        // $y1_prev_lesson = Lesson::whereClassYear(1)->orderBy('id' , 'asc')->first();
-        // $y2_prev_lesson = Lesson::whereClassYear(2)->orderBy('id' , 'asc')->first();
-        // $y3_prev_lesson = Lesson::whereClassYear(3)->orderBy('id' , 'asc')->first();
+        $mechanics_last_lesson = Lesson::whereClassYear(4)->whereOnline(1)->orderBy('id' , 'desc')->first();
+        $statistics_last_lesson = Lesson::whereClassYear(5)->whereOnline(1)->orderBy('id' , 'desc')->first();
 
         return view('pages.home',['y1_lesson' => $y1_last_lesson,
                                  'y2_lesson' => $y2_last_lesson, 
                                  'y3_lesson' => $y3_last_lesson,
-                                //  'y1_prev_lesson' => $y1_prev_lesson,
-                                //  'y2_prev_lesson' => $y2_prev_lesson,
-                                //  'y3_prev_lesson' => $y3_prev_lesson,
-                                 ]);
+                                 'mechanics_lesson' => $mechanics_last_lesson,
+                                 'statistics_lesson' => $statistics_last_lesson,
+                                ]);
     }
 
     /**

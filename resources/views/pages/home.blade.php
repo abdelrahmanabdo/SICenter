@@ -20,55 +20,55 @@
   <!-- ##### Hero Area End ##### -->
 
   <!-- ##### Cool Facts Area Start ##### -->
-  <section class="cool-facts-area section-padding-100-0">
-      <div class="container">
-          <div class="row">
+  <!--<section class="cool-facts-area section-padding-100-0">-->
+  <!--    <div class="container">-->
+  <!--        <div class="row">-->
               <!-- Single Cool Facts Area -->
-              <div class="col-12 col-sm-6 col-lg-3">
-                  <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">
-                      <div class="icon">
-                          <img src="{{asset('images/core-img/docs.png')}}" alt="">
-                      </div>
-                      <h2><span class="counter">1912</span></h2>
-                      <h5>Success Stories</h5>
-                  </div>
-              </div>
+  <!--            <div class="col-12 col-sm-6 col-lg-3">-->
+  <!--                <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="250ms">-->
+  <!--                    <div class="icon">-->
+  <!--                        <img src="{{asset('images/core-img/docs.png')}}" alt="">-->
+  <!--                    </div>-->
+  <!--                    <h2><span class="counter">1912</span></h2>-->
+  <!--                    <h5>Success Stories</h5>-->
+  <!--                </div>-->
+  <!--            </div>-->
 
               <!-- Single Cool Facts Area -->
-              <div class="col-12 col-sm-6 col-lg-3">
-                  <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">
-                      <div class="icon">
-                          <img src="{{asset('images/core-img/star.png')}}" alt="">
-                      </div>
-                      <h2><span class="counter">123</span></h2>
-                      <h5>Dedicated Tutors</h5>
-                  </div>
-              </div>
+  <!--            <div class="col-12 col-sm-6 col-lg-3">-->
+  <!--                <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="500ms">-->
+  <!--                    <div class="icon">-->
+  <!--                        <img src="{{asset('images/core-img/star.png')}}" alt="">-->
+  <!--                    </div>-->
+  <!--                    <h2><span class="counter">123</span></h2>-->
+  <!--                    <h5>Dedicated Tutors</h5>-->
+  <!--                </div>-->
+  <!--            </div>-->
 
               <!-- Single Cool Facts Area -->
-              <div class="col-12 col-sm-6 col-lg-3">
-                  <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="750ms">
-                      <div class="icon">
-                          <img src="{{asset('images/core-img/events.png')}}" alt="">
-                      </div>
-                      <h2><span class="counter">89</span></h2>
-                      <h5>Scheduled Events</h5>
-                  </div>
-              </div>
+  <!--            <div class="col-12 col-sm-6 col-lg-3">-->
+  <!--                <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="750ms">-->
+  <!--                    <div class="icon">-->
+  <!--                        <img src="{{asset('images/core-img/events.png')}}" alt="">-->
+  <!--                    </div>-->
+  <!--                    <h2><span class="counter">89</span></h2>-->
+  <!--                    <h5>Scheduled Events</h5>-->
+  <!--                </div>-->
+  <!--            </div>-->
 
               <!-- Single Cool Facts Area -->
-              <div class="col-12 col-sm-6 col-lg-3">
-                  <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">
-                      <div class="icon">
-                          <img src="{{asset('images/core-img/earth.png')}}" alt="">
-                      </div>
-                      <h2><span class="counter">56</span></h2>
-                      <h5>Available Courses</h5>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+  <!--            <div class="col-12 col-sm-6 col-lg-3">-->
+  <!--                <div class="single-cool-facts-area text-center mb-100 wow fadeInUp" data-wow-delay="1000ms">-->
+  <!--                    <div class="icon">-->
+  <!--                        <img src="{{asset('images/core-img/earth.png')}}" alt="">-->
+  <!--                    </div>-->
+  <!--                    <h2><span class="counter">56</span></h2>-->
+  <!--                    <h5>Available Courses</h5>-->
+  <!--                </div>-->
+  <!--            </div>-->
+  <!--        </div>-->
+  <!--    </div>-->
+  <!--</section>-->
   <!-- ##### Cool Facts Area End ##### -->
 
   <!-- ##### Popular Courses Start ##### -->
@@ -82,7 +82,7 @@
               </div>
           </div>
           <div class="row justify-content-center">
-            @if($y1_lesson || $y2_lesson || $y3_lesson)
+            @if($y1_lesson || $y2_lesson || $y3_lesson || $mechanics_lesson || $statistics_lesson)
               <!-- Single Popular Course -->
               @if($y1_lesson)
               <div class="col-12 col-md-6 col-lg-4">
@@ -192,6 +192,78 @@
                             <span class="mt-2 mr-2">يجب أن تكون طالب عن المستر لكي يمكنك الحضور</span>
                         </div>
                         @endguest
+                      </div> 
+                  </div>
+              </div>
+              @endif
+              @if($mechanics_lesson)
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                    <img style="height :170px"  src="{{asset('images/one.svg')}}" alt="">
+                    <!-- Course Content -->
+                    <div class="course-content ">
+                        <span class="float-right" >{{$mechanics_lesson->title}}</span>
+                        <div class="">
+                            <p>{{$mechanics_lesson->start_time}}</p>
+                        </div>
+                        <p class="d-flex justify-content-center">{{$mechanics_lesson->description}}</p>
+                    </div>
+                       <!-- Seat Rating Fee -->
+                       <div class="seat-rating-fee d-flex justify-content-between">
+                        @auth
+                            @if(auth()->user()->is_subscribed == 1)
+                                <div  class="seat-rating h-100 d-flex align-items-center">
+                                    <a class="date" href="{{route('lesson-room',['id'=>$mechanics_lesson->id , 'title'=>$mechanics_lesson->title])}}">الذهاب الي الدرس الأن</a>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a style="display:flex;justify-content:center" 
+                                        href="{{route('lesson-room',['id'=>$mechanics_lesson->id , 'title'=>$mechanics_lesson->title])}}">
+                                        <img style="width:27px" src="{{asset('images/go.svg')}}" />
+                                    </a>
+                                </div>
+                            @else 
+                                <span class="mt-2 mr-2">لم يتم دفع الاشتراك الشهري لكي يمكنك الحضور</span>
+                            @endif
+                          @endauth
+                          @guest 
+                          <span class="mt-2 mr-2">يجب أن تكون طالب عن المستر لكي يمكنك الحضور</span>
+                          @endguest
+                      </div> 
+                  </div>
+              </div>
+              @endif
+              @if($statistics_lesson)
+              <div class="col-12 col-md-6 col-lg-4">
+                  <div class="single-popular-course mb-100 wow fadeInUp" data-wow-delay="250ms">
+                    <img style="height :170px"  src="{{asset('images/one.svg')}}" alt="">
+                    <!-- Course Content -->
+                    <div class="course-content ">
+                        <span class="float-right" >{{$statistics_lesson->title}}</span>
+                        <div class="">
+                            <p>{{$statistics_lesson->start_time}}</p>
+                        </div>
+                        <p class="d-flex justify-content-center">{{$statistics_lesson->description}}</p>
+                    </div>
+                       <!-- Seat Rating Fee -->
+                       <div class="seat-rating-fee d-flex justify-content-between">
+                        @auth
+                            @if(auth()->user()->is_subscribed == 1)
+                                <div  class="seat-rating h-100 d-flex align-items-center">
+                                    <a class="date" href="{{route('lesson-room',['id'=>$statistics_lesson->id , 'title'=>$statistics_lesson->title])}}">الذهاب الي الدرس الأن</a>
+                                </div>
+                                <div class="course-fee h-100">
+                                    <a style="display:flex;justify-content:center" 
+                                        href="{{route('lesson-room',['id'=>$statistics_lesson->id , 'title'=>$statistics_lesson->title])}}">
+                                        <img style="width:27px" src="{{asset('images/go.svg')}}" />
+                                    </a>
+                                </div>
+                            @else 
+                                <span class="mt-2 mr-2">لم يتم دفع الاشتراك الشهري لكي يمكنك الحضور</span>
+                            @endif
+                          @endauth
+                          @guest 
+                          <span class="mt-2 mr-2">يجب أن تكون طالب عن المستر لكي يمكنك الحضور</span>
+                          @endguest
                       </div> 
                   </div>
               </div>
