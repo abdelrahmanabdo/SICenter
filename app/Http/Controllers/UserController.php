@@ -17,8 +17,8 @@ class UserController extends Controller
       $user = User::find($id);
       $user->update([
          'is_subscribed' => $request->is_subscribed == 'on' ? 1 : 0,
-         'mobile' => $request->mobile,
          'is_active' => 1,
+         'mobile' => $request->mobile,
          'password' => $request->password ? Hash::make($request->password) : $user->password
       ]);
 

@@ -44,6 +44,7 @@ class LessonController extends Controller
             'type' => 2,
             'start_time' => $date,
             'duration' => 90,
+            // 'password' => '12345678',
         ]);
 
         
@@ -53,6 +54,7 @@ class LessonController extends Controller
             'close_registration' => true,
             'approval_type' => 1,
             'registration_type' => 1,
+            // 'enforce_login' => true,
             'waiting_room' => false,
             'mute_upon_entry' => true,
             'watermark' => false,

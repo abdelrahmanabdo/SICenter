@@ -77,4 +77,3 @@ Route::get('/students/filter/{class}', 'StudentController@filter_students')->nam
  */
 Route::get('/attendance', 'AttendanceController@get_my_attendance')->name('attendances');
 
-

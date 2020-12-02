@@ -53,19 +53,17 @@
               <a class="nav-link @if(isset($class) && $class == 1) active @endif" href="{{route('student.filter',1)}}">الصف الأول</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if(isset($class) && $class == 2) active @endif" href="{{route('student.filter',2)}}">الصف الثاني - أدبي</a>
+                <a class="nav-link @if(isset($class) && $class == 2) active @endif" href="{{route('student.filter',2)}}">الصف الثاني</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if(isset($class) && $class == 3) active @endif" href="{{route('student.filter',3)}}">الصف الثاني - علمي</a>
+                <a class="nav-link @if(isset($class) && $class == 3) active @endif" href="{{route('student.filter',3)}}">الصف الثالث </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link @if(isset($class) && $class == 4) active @endif" href="{{route('student.filter',4)}}">الصف الثاني - ميكانيا</a>
+                <a class="nav-link @if(isset($class) && $class == 4) active @endif" href="{{route('student.filter',4)}}">ميكانيا</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link @if(isset($class) && $class == 5) active @endif" href="{{route('student.filter',5)}}">الصف الثالث </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link @if(isset($class) && $class == 6) active @endif" href="{{route('student.filter',6)}}">إحصاء</a>
+              <a class="nav-link @if(isset($class) && $class == 5) active @endif" href="{{route('student.filter',5)}}">إحصاء</a>
             </li>
           </ul>
          <table class="col-12" id="table" data-toggle="table">
@@ -93,10 +91,9 @@
                      <td>{{$item->details->guardianـjob}}</td>
                      <td>{{$item->details->guardianـmobile}}</td>
                      <td>{{$item->details->class_year == 1 ? 'الصف الأول' :
-                        ($item->details->class_year == 2 ? 'الصف الثاني - أدبي' :
-                        ($item->details->class_year == 3 ? 'الصف الثاني - علمي':(
-                         $item->details->class_year == 4 ? 'الصف الثاني - ميكانيا' : (
-                         $item->details->class_year == 5 ? 'الصف الثالث ' :  'إحصاء' )
+                        ($item->details->class_year == 2 ? 'الصف الثاني' :
+                        ($item->details->class_year == 3 ? 'الصف الثالث':(
+                         $item->details->class_year == 4 ? 'ميكانيا' : 'إحصاء'
                          )
                         ))
                         }}</td>
@@ -216,12 +213,11 @@
                     <select name="class_year" class="form-control" required>
                         <option disabled selected  @error('class_year') is-invalid 
                         @enderror" value="{{ old('class_year') }}">أختر الصف الدراسي</option>
-                        <option value="1">الصف الأول الثانوي</option>
-                        <option value="2">الصف الثاني الثانوي - أدبي</option>
-                        <option value="3">الصف الثاني الثانوي - علمي </option>
-                        <option value="4">الصف الثاني الثانوي - ميكانيا </option>
-                        <option value="5">الصف الثالث الثانوي </option>
-                        <option value="6">إحصاء</option>
+                            <option value="1">الصف الأول الثانوي</option>
+                            <option value="2">الصف الثاني الثانوي</option>
+                            <option value="3">الصف الثالث الثانوي </option>
+                            <option value="4"> ميكانيا </option>
+                            <option value="5">إحصاء</option>
                      </select>
                     @error('class_year')
                             <span class="invalid-feedback" role="alert">

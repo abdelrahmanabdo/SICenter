@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 16, 2020 at 06:42 PM
+-- Generation Time: Dec 02, 2020 at 03:29 AM
 -- Server version: 5.7.32-log
 -- PHP Version: 7.3.6
 
@@ -857,7 +857,8 @@ INSERT INTO `reservations` (`id`, `user_id`, `name`, `address`, `guardianـjob`,
 (378, 486, 'انجي عبدالله فتحي سليمان', 'بياض', 'نجار', '01062109494', '01009387119', 2, 0, 1, '2020-11-14 12:11:13', '2020-11-14 12:11:13'),
 (379, 487, 'لؤى محمد حسن احمد على', 'وراء الاستاد', 'مدرب دراجات', '01061888787', '01550701108', 2, 0, 1, '2020-11-15 04:19:10', '2020-11-15 04:19:10'),
 (380, 489, 'test test test', 'fff', 'fff', '01049219525', '314414', 4, 0, 1, '2020-11-16 16:04:41', '2020-11-16 16:04:41'),
-(381, 490, 'عبدالرحمن بببب', 'bns', 'teacher', '01112131415', '01030103133', 4, 3, 0, '2020-11-16 18:25:09', '2020-11-16 18:31:10');
+(381, 490, 'عبدالرحمن بببب', 'bns', 'teacher', '01112131415', '01030103133', 4, 3, 0, '2020-11-16 18:25:09', '2020-11-16 18:31:10'),
+(382, 491, 'خالد محمود محمد صلاح', 'خلف الاستاد الرياضي', 'مدير مبيعات', '01091200190', '01001289207', 2, 0, 1, '2020-11-20 19:51:19', '2020-11-20 19:51:19');
 
 -- --------------------------------------------------------
 
@@ -1725,7 +1726,9 @@ INSERT INTO `users` (`id`, `role`, `email`, `mobile`, `password`, `is_active`, `
 (487, 'Normal', NULL, '01061888787', '$2y$10$WH7tchxhLVskDB2bT/cRM.sazAwHgr83XGGPTvnIJ22neUMFJhZt6', 0, 0, NULL, NULL, '2020-11-15 04:17:31', '2020-11-15 04:17:31'),
 (488, 'Admin', NULL, '01282691449', '$2y$10$jn5O/HOJfcMH0a/TMqSteeqjGcyN9W9BWR1E/pni3vS.zvQ7swbkO', 1, 1, NULL, NULL, '2020-11-16 15:20:53', '2020-11-16 15:20:53'),
 (489, 'Normal', NULL, '01049219525', '$2y$10$potVLXnPJFiQ8fLxBjWczehLK2qYETw/GWGRiT1RJbXexIymGEGDG', 1, 1, NULL, NULL, '2020-11-16 16:04:41', '2020-11-16 16:04:41'),
-(490, 'Normal', NULL, '01112131415', '$2y$10$XTF6cr6Gn8b5iC5tpHpNaOJv4WpASC9CB6XRO0dp7ErXgfAP36N12', 1, 0, NULL, NULL, '2020-11-16 18:21:06', '2020-11-16 18:26:38');
+(490, 'Normal', NULL, '01112131415', '$2y$10$XTF6cr6Gn8b5iC5tpHpNaOJv4WpASC9CB6XRO0dp7ErXgfAP36N12', 1, 0, NULL, NULL, '2020-11-16 18:21:06', '2020-11-16 18:26:38'),
+(491, 'Normal', NULL, '01113689196', '$2y$10$ULA7M3/.k7qxTUN2FTNVu.hw2Ap5jgjXgq3E/ls4/pjw.udvWNdGS', 0, 0, NULL, NULL, '2020-11-20 19:50:44', '2020-11-20 19:50:44'),
+(492, 'Normal', NULL, '01276250577', '$2y$10$s.CCDptLUOBdedEE8uXBeO/gBuypPBJhYQTp7PAQUnrQ5HLhgktMq', 0, 0, NULL, NULL, '2020-11-30 14:12:50', '2020-11-30 14:12:50');
 
 --
 -- Indexes for dumped tables
@@ -1831,7 +1834,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=382;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=383;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -1843,7 +1846,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=491;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
 
 --
 -- Constraints for dumped tables
